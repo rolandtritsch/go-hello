@@ -1,2 +1,8 @@
-# go-hello
-go - Hello World
+# go - Hello World
+
+Run it with ...
+
+```bash
+go run hello.go
+```
+
