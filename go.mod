@@ -1,3 +1,3 @@
-module github.com/rolandtritsch/go-hello
+module github.com/rolandtritsch/golang-hello
 
 go 1.24.2

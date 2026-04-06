@@ -1,10 +1,8 @@
 package main
 
-import (
-	"fmt"
+import "fmt"
 
-	"github.com/rolandtritsch/go-hello/hello"
-)
+import "github.com/rolandtritsch/golang-hello/hello"
 
 func main() {
 	fmt.Println(hello.Text())
