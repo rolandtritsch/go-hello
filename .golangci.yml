@@ -1,0 +1,7 @@
+version: "2"
+linters:
+  enable:
+    - grouper
+linters-settings:
+  grouper:
+    require-single-import: true
