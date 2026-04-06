@@ -3,6 +3,6 @@
 Run it with ...
 
 ```bash
-go run hello.go
+go run main.go
 ```
 
