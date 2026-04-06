@@ -1,22 +1,13 @@
 BINPATH := bin
-BINARY  := hello-main
+BINARY := hello-main
 
 BUILDPATH := build
-
-GOCMD   := go
-GOBUILD := $(GOCMD) build
-GOCOVER := $(GOCMD) tool cover
-GOFMT   := $(GOCMD) fmt
-GOLINT  := golangci-lint run
-GORUN   := $(GOCMD) run
-GOTEST  := $(GOCMD) test
-GOVET   := $(GOCMD) vet
 
 .DEFAULT_GOAL := help
 
 .PHONY: build
 build: init ## Build the binary
-	$(GOBUILD) -o $(BINPATH)/$(BINARY) .
+	go build -o $(BINPATH)/$(BINARY) .
 
 .PHONY: clean
 clean: ## Remove build artifacts
@@ -24,12 +15,12 @@ clean: ## Remove build artifacts
 
 .PHONY: coverage
 coverage: init ## Run tests and fail if coverage is below 80%
-	$(GOTEST) -coverprofile=$(BUILDPATH)/coverage.out -coverpkg=./hello/... ./...
-	@$(GOCOVER) -func=$(BUILDPATH)/coverage.out | awk '/^total:/{gsub(/%/,"",$$3); if($$3+0<80){print "FAIL: coverage "$$3"% is below 80%"; exit 1} else {print "PASS: coverage "$$3"%"}}'
+	go test -coverprofile=$(BUILDPATH)/coverage.out -coverpkg=./hello/... ./...
+	@go tool cover -func=$(BUILDPATH)/coverage.out | awk '/^total:/{gsub(/%/,"",$$3); if($$3+0<80){print "FAIL: coverage "$$3"% is below 80%"; exit 1} else {print "PASS: coverage "$$3"%"}}'
 
 .PHONY: fmt
 fmt: ## Format Go source files
-	$(GOFMT) ./...
+	go fmt ./...
 
 .PHONY: help
 help: ## Show this help message
@@ -43,20 +34,20 @@ init: ## Initialize the project
 
 .PHONY: lint
 lint: vet ## Run linter (requires golangci-lint)
-	$(GOLINT) ./...
+	golangci-lint run ./...
 
 .PHONY: run
 run: ## Run the program
-	$(GORUN) .
+	go run .
 
 .PHONY: test
 test: ## Run tests
-	$(GOTEST) -v ./...
+	go test -v ./...
 
 .PHONY: tidy
 tidy: ## Tidy go modules
-	$(GOCMD) mod tidy
+	go mod tidy
 
 .PHONY: vet
 vet: ## Run go vet
-	$(GOVET) ./...
+	go vet ./...
