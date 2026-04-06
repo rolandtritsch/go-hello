@@ -1,4 +1,5 @@
-BINARY  := bin/hello-main
+BINPATH := bin
+BINARY  := hello-main
 
 GOCMD   := go
 GOBUILD := $(GOCMD) build
@@ -11,12 +12,12 @@ GOVET   := $(GOCMD) vet
 
 .PHONY: build
 build: ## Build the binary
-	mkdir -p bin
-	$(GOBUILD) -o $(BINARY) .
+	mkdir -p $(BINPATH)
+	$(GOBUILD) -o $(BINPATH)/$(BINARY) .
 
 .PHONY: clean
 clean: ## Remove build artifacts
-	rm -rf bin
+	rm -rf $(BINPATH)
 
 .PHONY: fmt
 fmt: ## Format Go source files
